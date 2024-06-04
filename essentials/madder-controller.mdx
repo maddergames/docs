@@ -4,7 +4,7 @@ description: "The Madder Controller for the [Unity Input System](https://docs.un
 icon: "gamepad"
 ---
 
-<img style={{ borderRadius: "0.5rem" }} src="images/madder-controller.png" />
+<img style={{ borderRadius: "0.5rem" }} src="/images/madder-controller.png" />
 
 ## Madder Controller
 
@@ -35,8 +35,8 @@ The names which appear in the Unity input system are as follows:
 Upon loading the Unity Editor, the Madder Controller Registration class will automatically register the Madder Controller with the Unity Input System. You can then assign the bindings to your desired actions in the Unity Input System: Other -> Madder Controller.
 
 <img
+  src="/images/input-actions-example.png"
   style={{ borderRadius: "0.5rem" }}
-  src="images/input-actions-example.png"
 />
 
 Controllers should not be added manually to the Unity Input System--The [Madder Manager](essentials/madder-manager) will detect when a player has joined, register a new Madder Controller, and associate that controller with the gamername of the player who has joined. Unity inputs can be assigned to a player by listening to the [OnRegisterMadderController](madder-manager#onregistermaddercontroller) event and creating a new PlayerInput object. When you create a new PlayerInput object, Unity automatically checks for available input devices and will assign the Madder Controller to the player.
