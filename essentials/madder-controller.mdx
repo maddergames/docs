@@ -1,0 +1,65 @@
+---
+title: "Madder Controller"
+description: "The Madder Controller for the [Unity Input System](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/manual/index.html)"
+icon: "gamepad"
+---
+
+<img style={{ borderRadius: "0.5rem" }} src="images/madder-controller.png" />
+
+## Madder Controller
+
+### Overview
+
+The Madder Controller consists of a joystick and three buttons: triangle, circle, and plus.
+The Madder Controller class exists to register the Madder Controller with the Unity Input System and define the available controls.
+
+```csharp
+    public Vector2Control joystick { get; private set; }
+
+    public ButtonControl triangleButton { get; private set; }
+
+    public ButtonControl circleButton { get; private set; }
+
+    public ButtonControl plusButton { get; private set; }
+```
+
+The names which appear in the Unity input system are as follows:
+
+- Joystick: "joystick"
+- Triangle Button: "triangle"
+- Circle Button: "circle"
+- Plus Button: "plus"
+
+### Usage
+
+Upon loading the Unity Editor, the Madder Controller Registration class will automatically register the Madder Controller with the Unity Input System. You can then assign the bindings to your desired actions in the Unity Input System: Other -> Madder Controller.
+
+<img
+  style={{ borderRadius: "0.5rem" }}
+  src="images/input-actions-example.png"
+/>
+
+Controllers should not be added manually to the Unity Input System--The [Madder Manager](essentials/madder-manager) will detect when a player has joined, register a new Madder Controller, and associate that controller with the gamername of the player who has joined. Unity inputs can be assigned to a player by listening to the [OnRegisterMadderController](madder-manager#onregistermaddercontroller) event and creating a new PlayerInput object. When you create a new PlayerInput object, Unity automatically checks for available input devices and will assign the Madder Controller to the player.
+
+```csharp
+    private void OnRegisterMadderController(MadderController madderController)
+    {
+        GameObject player = Instantiate(playerPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+
+        player.name = gamername;
+
+
+        PlayerInput playerInput = player.AddComponent<PlayerInput>();
+        //We must clone the inputActions to avoid sharing the same instance between players
+        InputActionAsset clonedinputActions = Instantiate(inputActions);
+        playerInput.actions = clonedinputActions;
+
+        //Associate the actions with the player, e.g.:
+        SamplePlayer playerController = player.GetComponent<SamplePlayer>();
+        playerController.Initialize(playerInput);
+
+    }
+
+```
+
+Note that the home button on the Madder Controller is not used for input and is reserved for system functions.

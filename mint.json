@@ -7,23 +7,23 @@
   },
   "favicon": "/favicon.svg",
   "colors": {
-    "primary": "#0D9373",
-    "light": "#07C983",
-    "dark": "#0D9373",
+    "primary": "#BB3D3D",
+    "light": "#BB3D3D",
+    "dark": "#BB3D3D",
     "anchors": {
-      "from": "#0D9373",
-      "to": "#07C983"
+      "from": "#843131",
+      "to": "#BB3D3D"
     }
   },
   "topbarLinks": [
     {
       "name": "Support",
-      "url": "mailto:hi@mintlify.com"
+      "url": "https://maddergames.com/contact"
     }
   ],
   "topbarCtaButton": {
-    "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "name": "Dev Portal",
+    "url": "https://developers.maddergames.com"
   },
   "tabs": [
     {
@@ -33,49 +33,40 @@
   ],
   "anchors": [
     {
-      "name": "Documentation",
-      "icon": "book-open-cover",
-      "url": "https://mintlify.com/docs"
+      "name": "Tutorials",
+      "icon": "question",
+      "iconType": "solid",
+      "url": "https://developers.maddergames.com/starter-tutorial"
     },
     {
       "name": "Community",
-      "icon": "slack",
-      "url": "https://mintlify.com/community"
-    },
-    {
-      "name": "Blog",
-      "icon": "newspaper",
-      "url": "https://mintlify.com/blog"
+      "icon": "discord",
+      "url": "https://discord.gg/5vzNVHfGus"
     }
   ],
   "navigation": [
     {
       "group": "Get Started",
+      "pages": ["introduction", "quickstart", "development"]
+    },
+    {
+      "group": "Madder Classes",
       "pages": [
-        "introduction",
-        "quickstart",
-        "development"
+        "essentials/madder-manager",
+        "essentials/madder-controller",
+        "essentials/madder-controller-state",
+        "essentials/madder-controller-manager",
+        "essentials/madder-player",
+        "essentials/madder-stat",
+        "essentials/madder-messager"
       ]
     },
     {
-      "group": "Essentials",
-      "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
-      ]
+      "group": "Madder Starter Pack",
+      "pages": ["api-reference/introduction"]
     },
     {
-      "group": "API Documentation",
-      "pages": [
-        "api-reference/introduction"
-      ]
-    },
-    {
-      "group": "Endpoint Examples",
+      "group": "Madder Classes",
       "pages": [
         "api-reference/endpoint/get",
         "api-reference/endpoint/create",
@@ -84,8 +75,8 @@
     }
   ],
   "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://www.linkedin.com/company/mintsearch"
+    "x": "https://x.com/MadderGames1",
+    "github": "https://github.com/maddergames",
+    "linkedin": "https://www.linkedin.com/company/madder-games"
   }
 }
