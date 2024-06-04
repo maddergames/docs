@@ -1,66 +1,56 @@
 ---
 title: "Madder Controller State"
-description: "The navigation field in mint.json defines the pages that go in the navigation menu"
+description: "The Madder Controller State for the [Unity Input System](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/manual/index.html) and deserialization"
 icon: "dice"
 ---
 
-The navigation menu is the list of links on every website.
+## Madder Controller State
 
-You will likely update `mint.json` every time you add a new page. Pages do not show up automatically.
+### Overview
 
-## Navigation syntax
+The Madder controller state is a struct used for deserializing the input sent from a player's Madder controller app to the Unity game. The WebGL build calls [UpdateMadderControllerState()](madder-manager#updatemaddercontrollerstate) on the Madder Manager to update the Madder controller state. The inputs from the player's controller are sent as follows:
 
-Our navigation syntax is recursive which means you can make nested navigation groups. You don't need to include `.mdx` in page names.
+- Joystick: \{x: float, y: float\}
+- Triangle Button: boolean
+- Circle Button: boolean
+- Plus Button: boolean
 
-<CodeGroup>
+Upon receiving the input from the player's controller, the Madder Manager will deserialize the json object, convert to the expected datatypes, and update the Madder Controller State with the new input values.
 
-```json Regular Navigation
-"navigation": [
+This class, along with the [Madder Controller](madder-controller) class, defines the layout of the Madder Controller for the Unity Input system.
+
+```csharp
+    [System.Serializable]
+    public struct MadderControllerState : IInputStateTypeInfo
     {
-        "group": "Getting Started",
-        "pages": ["quickstart"]
+        public static FourCC Format => new FourCC('M', 'A', 'D', 'R');
+        public string name;
+        [InputControl(name = "joystick", layout = "Vector2")]
+        public Vector2 joystick;
+
+        [InputControl(name = "circle", layout = "Button")]
+        public float circle;
+
+        [InputControl(name = "triangle", layout = "Button")]
+        public float triangle;
+
+        [InputControl(name = "plus", layout = "Button")]
+        public float plus;
+        public FourCC format => Format;
     }
-]
+
 ```
 
-```json Nested Navigation
-"navigation": [
+The FourCC Format is used internally by the Unity Input System to identify the format of the input state and the layout of the controller. There shouldn't be a need to interact with this value.
+
+### Usage
+
+See [Madder Controller](madder-controller) for usage with the Unity Input System.
+If you are not using the Unity Input System, you may receive this information directly and interact with it as you need by listening to the [OnUpdateMadderControllerState](madder-manager#onupdatemaddercontrollerstate) event.
+
+```csharp
+    private void OnUpdateMadderControllerState(MadderControllerState madderControllerState)
     {
-        "group": "Getting Started",
-        "pages": [
-            "quickstart",
-            {
-                "group": "Nested Reference Pages",
-                "pages": ["nested-reference-page"]
-            }
-        ]
+        //Do something
     }
-]
 ```
-
-</CodeGroup>
-
-## Folders
-
-Simply put your MDX files in folders and update the paths in `mint.json`.
-
-For example, to have a page at `https://yoursite.com/your-folder/your-page` you would make a folder called `your-folder` containing an MDX file called `your-page.mdx`.
-
-<Warning>
-
-You cannot use `api` for the name of a folder unless you nest it inside another folder. Mintlify uses Next.js which reserves the top-level `api` folder for internal server calls. A folder name such as `api-reference` would be accepted.
-
-</Warning>
-
-```json Navigation With Folder
-"navigation": [
-    {
-        "group": "Group Name",
-        "pages": ["your-folder/your-page"]
-    }
-]
-```
-
-## Hidden Pages
-
-MDX files not included in `mint.json` will not show up in the sidebar but are accessible through the search bar and by linking directly to them.
