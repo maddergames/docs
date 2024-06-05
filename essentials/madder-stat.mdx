@@ -14,7 +14,8 @@ The Madder Stat class is a generic serializable class that can be used to store 
 - Float
 - Bool
 
-The `Name` is the name of the stat and is REQUIRED. The `Value` is the value of the stat and is REQUIRED. Using a disallowed stat type will result in an exception.
+The `Name` is the name of the stat and is REQUIRED. The `Value` is the value of the stat and is REQUIRED. Using a
+disallowed stat type will result in an exception.
 
 ```csharp
 public interface IMadderStat { }
@@ -42,10 +43,14 @@ public class MadderStat<T> : IMadderStat
 
 ## Usage
 
-Player stats are added to the player's account through the [Madder Messager's](madder-messager#updatemadderplayerstats) `UpdateMadderPlayerStats` method. This function takes a [Madder Player](madder-player) object serialized as a JSON string. The Madder Player object contains a dictionary of stats that are updated on the player's account. Because it is a dictionary, you can add as many stats as you like to the player's account.
+Player stats are added to the player's account through the [Madder Messager's](madder-messager#updatemadderplayerstats)
+`UpdateMadderPlayerStats` method. This function takes a [Madder Player](madder-player) object serialized as a JSON
+string. The Madder Player object contains a dictionary of stats that are updated on the player's account. Because it is
+a dictionary, you can add as many stats as you like to the player's account.
 
 The Madder Stat class may be extended to add calculations and functions.
-For example, you may want to track a total number of kills a player has accumulated in your game, but you only want to display their K/D ratio:
+For example, you may want to track a total number of kills a player has accumulated in your game, but you only want to
+display their K/D ratio:
 
 ```csharp
 public class KillDeathRatioStat : MadderStat<float>
@@ -94,4 +99,5 @@ public class KillDeathRatioStat : MadderStat<float>
 }
 ```
 
-There is no limit to the number of stats you can add to a player's account. However, it is recommended to keep the number of stats to a reasonable amount to avoid performance issues and to keep the player's account clean.
+There is no limit to the number of stats you can add to a player's account. However, it is recommended to keep the
+number of stats to a reasonable amount to avoid performance issues and to keep the player's account clean.

@@ -1,6 +1,7 @@
 ---
 title: "Madder Controller"
-description: "The Madder Controller for the [Unity Input System](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/manual/index.html)"
+description: "The Madder Controller for the 
+[Unity Input System](https://docs.unity3d.com/Packages/com.unity.inputsystem@1.0/manual/index.html)"
 icon: "gamepad"
 ---
 
@@ -11,7 +12,8 @@ icon: "gamepad"
 ## Overview
 
 The Madder Controller consists of a joystick and three buttons: triangle, circle, and plus.
-The Madder Controller class exists to register the Madder Controller with the Unity Input System and define the available controls.
+The Madder Controller class exists to register the Madder Controller with the Unity Input System and define the
+available controls.
 
 ```csharp
     public Vector2Control joystick { get; private set; }
@@ -32,7 +34,9 @@ The names which appear in the Unity input system are as follows:
 
 ## Usage
 
-Upon loading the Unity Editor, the Madder Controller Registration class will automatically register the Madder Controller with the Unity Input System. You can then assign the bindings to your desired actions in the Unity Input System: Other -> Madder Controller.
+Upon loading the Unity Editor, the Madder Controller Registration class will automatically register the Madder
+Controller with the Unity Input System. You can then assign the bindings to your desired actions in the Unity Input
+System: Other -> Madder Controller.
 
 <Frame>
   <img
@@ -41,7 +45,12 @@ Upon loading the Unity Editor, the Madder Controller Registration class will aut
   />
 </Frame>
 
-Controllers should not be added manually to the Unity Input System--The [Madder Manager](madder-manager) will detect when a player has joined, register a new Madder Controller, and associate that controller with the gamername of the player who has joined. Unity inputs can be assigned to a player by listening to the [OnRegisterMadderController](madder-manager#onregistermaddercontroller) event and creating a new PlayerInput object. When you create a new PlayerInput object, Unity automatically checks for available input devices and will assign the Madder Controller to the player.
+Controllers should not be added manually to the Unity Input System--The [Madder Manager](madder-manager) will detect
+when a player has joined, register a new Madder Controller, and associate that controller with the gamername of the
+player who has joined. Unity inputs can be assigned to a player by listening to the
+[OnRegisterMadderController](madder-manager#onregistermaddercontroller) event and creating a new PlayerInput object.
+When you create a new PlayerInput object, Unity automatically checks for available input devices and will assign the
+Madder Controller to the player.
 
 ```csharp
     private void OnRegisterMadderController(MadderController madderController)
