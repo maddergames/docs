@@ -4,9 +4,7 @@ description: "Base class for Madder player stats that are shown per game on the 
 icon: "chart-simple"
 ---
 
-## Madder Stat
-
-### Overview
+## Overview
 
 The Madder Stat class is the base class for Madder player stats. These stats are shown per game on the player's account.
 The Madder Stat class is a generic serializable class that can be used to store the following types of stats:
@@ -42,7 +40,7 @@ public class MadderStat<T> : IMadderStat
 }
 ```
 
-### Usage
+## Usage
 
 Player stats are added to the player's account through the [Madder Messager's](madder-messager#updatemadderplayerstats) `UpdateMadderPlayerStats` method. This function takes a [Madder Player](madder-player) object serialized as a JSON string. The Madder Player object contains a dictionary of stats that are updated on the player's account. Because it is a dictionary, you can add as many stats as you like to the player's account.
 

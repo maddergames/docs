@@ -4,9 +4,7 @@ description: "The Madder Controller State for deserialization and/or the [Unity 
 icon: "dice"
 ---
 
-## Madder Controller State
-
-### Overview
+## Overview
 
 The Madder controller state is a struct used for deserializing the input sent from a player's Madder controller app to the Unity game. The WebGL build calls [UpdateMadderControllerState()](madder-manager#updatemaddercontrollerstate) on the Madder Manager to update the Madder controller state. The inputs from the player's controller are sent as follows:
 
@@ -44,7 +42,7 @@ This class, along with the [Madder Controller](madder-controller) class, defines
 
 The FourCC Format is used internally by the Unity Input System to identify the format of the input state and the layout of the controller. There shouldn't be a need to interact with this value.
 
-### Usage
+## Usage
 
 See [Madder Controller](madder-controller) for usage with the Unity Input System.
 If you are not using the Unity Input System, you may receive this information directly and interact with it as you need by listening to the [OnUpdateMadderControllerState](madder-manager#onupdatemaddercontrollerstate) event.

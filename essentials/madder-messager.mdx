@@ -4,15 +4,13 @@ description: "Functions to interact with the Madder server or individual player 
 icon: "arrow-right-arrow-left"
 ---
 
-## Madder Messager
-
-### Overview
+## Overview
 
 The Madder Messager is a static class that provides functions to interface between the WebGL build and the Unity game.
 
-### Usage
+## Usage
 
-#### VibratePlayerController
+### VibratePlayerController
 
 The `VibratePlayerController` function vibrates a player's controller briefly.
 The `gamername` parameter is the gamername of the player controller you want to vibrate and is REQUIRED.
@@ -21,7 +19,7 @@ The `gamername` parameter is the gamername of the player controller you want to 
 MadderMessager.VibratePlayerController(string gamername);
 ```
 
-#### VibrateAllPlayerControllers
+### VibrateAllPlayerControllers
 
 The `VibrateAllPlayerControllers` function vibrates all player controllers briefly.
 
@@ -29,7 +27,7 @@ The `VibrateAllPlayerControllers` function vibrates all player controllers brief
 MadderMessager.VibrateAllPlayerControllers();
 ```
 
-#### UpdateMadderPlayerStats
+### UpdateMadderPlayerStats
 
 The `UpdateMadderPlayerStats` function updates a player's stats on the Madder server. You decide when this gets called; however, if your game crashes or the host exits the game without you making the call, the stats will not be updated.
 
@@ -41,7 +39,7 @@ The `MadderPlayer` object contains the player's gamername and a dictionary of [M
 MadderMessager.UpdateMadderPlayerStats(string madderPlayer);
 ```
 
-#### ShowCode
+### ShowCode
 
 The `ShowCode` function displays the room code on the game screen. This function may be called on `Start()` but **must not** be called on `Awake()`, or the room code will not display.
 
@@ -49,7 +47,7 @@ The `ShowCode` function displays the room code on the game screen. This function
 MadderMessager.ShowCode();
 ```
 
-#### HideCode
+### HideCode
 
 The `HideCode` function hides the room code from the game screen.
 

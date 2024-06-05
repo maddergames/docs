@@ -4,9 +4,7 @@ description: "Class used for deserialization and interaction with the player's a
 icon: "user"
 ---
 
-## Madder Player
-
-### Overview
+## Overview
 
 The Madder Player class is sent to the Unity game from the Madder server to register a Madder controller with the game in the [Madder Manager's](madder-manager#registermaddercontroller) `RegisterMadderController` method.
 The Madder Player class is also used to update the player's account with stats.
@@ -24,7 +22,7 @@ public class MadderPlayer
 }
 ```
 
-### Usage
+## Usage
 
 The Madder Manager does not keep a list of MadderPlayers that have joined the game.
 To update a Madder Player's stats, you will need to call the [Madder Messager's](madder-messager#updatemadderplayerstats) `UpdateMadderPlayerStats` method.
