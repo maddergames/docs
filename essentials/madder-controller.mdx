@@ -15,7 +15,7 @@ The Madder Controller consists of a joystick and three buttons: triangle, circle
 The Madder Controller class exists to register the Madder Controller with the Unity Input System and define the
 available controls.
 
-```csharp
+```csharp MadderController.cs
     public Vector2Control joystick { get; private set; }
 
     public ButtonControl triangleButton { get; private set; }
@@ -52,7 +52,7 @@ player who has joined. Unity inputs can be assigned to a player by listening to 
 When you create a new PlayerInput object, Unity automatically checks for available input devices and will assign the
 Madder Controller to the player.
 
-```csharp
+```csharp SamplePlayerManager.cs
     private void OnRegisterMadderController(MadderController madderController)
     {
         GameObject player = Instantiate(playerPrefab, new Vector3(0, 0, 0), Quaternion.identity);

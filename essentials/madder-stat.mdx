@@ -17,7 +17,7 @@ The Madder Stat class is a generic serializable class that can be used to store 
 The `Name` is the name of the stat and is REQUIRED. The `Value` is the value of the stat and is REQUIRED. Using a
 disallowed stat type will result in an exception.
 
-```csharp
+```csharp MadderStat.cs
 public interface IMadderStat { }
 [System.Serializable]
 public class MadderStat<T> : IMadderStat
@@ -52,7 +52,7 @@ The Madder Stat class may be extended to add calculations and functions.
 For example, you may want to track a total number of kills a player has accumulated in your game, but you only want to
 display their K/D ratio:
 
-```csharp
+```csharp KillDeathRatioStat.cs
 public class KillDeathRatioStat : MadderStat<float>
 {
 
