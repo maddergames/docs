@@ -11,6 +11,7 @@ icon: "user"
 The Madder Player class is sent to the Unity game from the Madder server to register a Madder controller with the game in the [Madder Manager's](madder-manager#registermaddercontroller) `RegisterMadderController` method.
 The Madder Player class is also used to update the player's account with stats.
 This class contains the player's gamername and a dictionary of [MadderStat](madder-stat) objects.
+In the MadderStat dictionary, the key is the name of the stat, and the value is the stat object.
 
 ```csharp
 [System.Serializable]
