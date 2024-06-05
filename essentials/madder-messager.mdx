@@ -29,7 +29,8 @@ MadderMessager.VibrateAllPlayerControllers();
 
 ### UpdateMadderPlayerStats
 
-The `UpdateMadderPlayerStats` function updates a player's stats on the Madder server. You decide when this gets called; however, if your game crashes or the host exits the game without you making the call, the stats will not be updated.
+The `UpdateMadderPlayerStats` function updates a player's stats on the Madder server. You decide when this gets called;
+however, if your game crashes or the host exits the game without you making the call, the stats will not be updated.
 
 The `MadderPlayer` parameter is a serialized JSON string of the [MadderPlayer](madder-player) object and is REQUIRED.
 
@@ -41,7 +42,8 @@ MadderMessager.UpdateMadderPlayerStats(string madderPlayer);
 
 ### ShowCode
 
-The `ShowCode` function displays the room code on the game screen. This function may be called on `Start()` but **must not** be called on `Awake()`, or the room code will not display.
+The `ShowCode` function displays the room code on the game screen. This function may be called on `Start()` but **must
+not** be called on `Awake()`, or the room code will not display.
 
 ```csharp
 MadderMessager.ShowCode();
