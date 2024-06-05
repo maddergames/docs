@@ -1,114 +1,56 @@
 ---
 title: Madder Messager
-description: Reusable, custom snippets to keep content in sync
+description: "Functions to interact with the Madder server or individual player controller apps"
 icon: "arrow-right-arrow-left"
 ---
 
-import SnippetIntro from "/snippets/snippet-intro.mdx";
+## Overview
 
-<SnippetIntro />
+The Madder Messager is a static class that provides functions to interface between the WebGL build and the Unity game.
 
-## Creating a custom snippet
+## Usage
 
-**Pre-condition**: You must create your snippet file in the `snippets` directory.
+### VibratePlayerController
 
-<Note>
-  Any page in the `snippets` directory will be treated as a snippet and will not
-  be rendered into a standalone page. If you want to create a standalone page
-  from the snippet, import the snippet into another file and call it as a
-  component.
-</Note>
+The `VibratePlayerController` function vibrates a player's controller briefly.
+The `gamername` parameter is the gamername of the player controller you want to vibrate and is REQUIRED.
 
-### Default export
-
-1. Add content to your snippet file that you want to re-use across multiple
-   locations. Optionally, you can add variables that can be filled in via props
-   when you import the snippet.
-
-```mdx snippets/my-snippet.mdx
-Hello world! This is my content I want to reuse across pages. My keyword of the
-day is {word}.
+```csharp
+MadderMessager.VibratePlayerController(string gamername);
 ```
 
-<Warning>
-  The content that you want to reuse must be inside the `snippets` directory in
-  order for the import to work.
-</Warning>
+### VibrateAllPlayerControllers
 
-2. Import the snippet into your destination file.
+The `VibrateAllPlayerControllers` function vibrates all player controllers briefly.
 
-```mdx destination-file.mdx
----
-title: My title
-description: My Description
----
-
-import MySnippet from "/snippets/path/to/my-snippet.mdx";
-
-## Header
-
-Lorem impsum dolor sit amet.
-
-<MySnippet word="bananas" />
+```csharp
+MadderMessager.VibrateAllPlayerControllers();
 ```
 
-### Reusable variables
+### UpdateMadderPlayerStats
 
-1. Export a variable from your snippet file:
+The `UpdateMadderPlayerStats` function updates a player's stats on the Madder server. You decide when this gets called; however, if your game crashes or the host exits the game without you making the call, the stats will not be updated.
 
-```mdx snippets/path/to/custom-variables.mdx
-export const myName = "my name";
+The `MadderPlayer` parameter is a serialized JSON string of the [MadderPlayer](madder-player) object and is REQUIRED.
 
-export const myObject = { fruit: "strawberries" };
+The `MadderPlayer` object contains the player's gamername and a dictionary of [MadderStat](madder-stat) objects.
 
-;
+```csharp
+MadderMessager.UpdateMadderPlayerStats(string madderPlayer);
 ```
 
-2. Import the snippet from your destination file and use the variable:
+### ShowCode
 
-```mdx destination-file.mdx
----
-title: My title
-description: My Description
----
+The `ShowCode` function displays the room code on the game screen. This function may be called on `Start()` but **must not** be called on `Awake()`, or the room code will not display.
 
-import { myName, myObject } from "/snippets/path/to/custom-variables.mdx";
-
-Hello, my name is {myName} and I like {myObject.fruit}.
+```csharp
+MadderMessager.ShowCode();
 ```
 
-### Reusable components
+### HideCode
 
-1. Inside your snippet file, create a component that takes in props by exporting
-   your component in the form of an arrow function.
+The `HideCode` function hides the room code from the game screen.
 
-```mdx snippets/custom-component.mdx
-export const MyComponent = ({ title }) => (
-  <div>
-    <h1>{title}</h1>
-    <p>... snippet content ...</p>
-  </div>
-);
-
-;
-```
-
-<Warning>
-  MDX does not compile inside the body of an arrow function. Stick to HTML
-  syntax when you can or use a default export if you need to use MDX.
-</Warning>
-
-2. Import the snippet into your destination file and pass in the props
-
-```mdx destination-file.mdx
----
-title: My title
-description: My Description
----
-
-import { MyComponent } from "/snippets/custom-component.mdx";
-
-Lorem ipsum dolor sit amet.
-
-<MyComponent title={"Custom title"} />
+```csharp
+MadderMessager.HideCode();
 ```
