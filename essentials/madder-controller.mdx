@@ -43,7 +43,7 @@ Upon loading the Unity Editor, the Madder Controller Registration class will aut
   />
 </Frame>
 
-Controllers should not be added manually to the Unity Input System--The [Madder Manager](essentials/madder-manager) will detect when a player has joined, register a new Madder Controller, and associate that controller with the gamername of the player who has joined. Unity inputs can be assigned to a player by listening to the [OnRegisterMadderController](madder-manager#onregistermaddercontroller) event and creating a new PlayerInput object. When you create a new PlayerInput object, Unity automatically checks for available input devices and will assign the Madder Controller to the player.
+Controllers should not be added manually to the Unity Input System--The [Madder Manager](madder-manager) will detect when a player has joined, register a new Madder Controller, and associate that controller with the gamername of the player who has joined. Unity inputs can be assigned to a player by listening to the [OnRegisterMadderController](madder-manager#onregistermaddercontroller) event and creating a new PlayerInput object. When you create a new PlayerInput object, Unity automatically checks for available input devices and will assign the Madder Controller to the player.
 
 ```csharp
     private void OnRegisterMadderController(MadderController madderController)
@@ -61,7 +61,6 @@ Controllers should not be added manually to the Unity Input System--The [Madder 
         //Associate the actions with the player, e.g.:
         SamplePlayer playerController = player.GetComponent<SamplePlayer>();
         playerController.Initialize(playerInput);
-
     }
 
 ```

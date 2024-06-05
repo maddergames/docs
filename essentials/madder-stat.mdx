@@ -1,5 +1,99 @@
 ---
 title: "Madder Stat"
-description: "madder stat"
+description: "Base class for Madder player stats that are shown per game on the player's account"
 icon: "chart-simple"
 ---
+
+## Madder Stat
+
+### Overview
+
+The Madder Stat class is the base class for Madder player stats. These stats are shown per game on the player's account.
+The Madder Stat class is a generic serializable class that can be used to store the following types of stats:
+
+- String
+- Int
+- Float
+- Bool
+
+The `Name` is the name of the stat and is REQUIRED. The `Value` is the value of the stat and is REQUIRED. Using a disallowed stat type will result in an exception.
+
+```csharp
+public interface IMadderStat { }
+[System.Serializable]
+public class MadderStat<T> : IMadderStat
+{
+    static MadderStat()
+    {
+        ValidateType();
+    }
+
+    private static void ValidateType()
+    {
+        Type type = typeof(T);
+        if (type != typeof(string) && type != typeof(float) && type != typeof(bool) && type != typeof(int))
+        {
+            throw new InvalidOperationException("Type not allowed. Only string, float, bool, or int are allowed.");
+        }
+    }
+
+    public string Name { get; set; }
+    public T Value { get; set; }
+}
+```
+
+### Usage
+
+Player stats are added to the player's account through the [Madder Messager's](madder-messager#updatemadderplayerstats) `UpdateMadderPlayerStats` method. This function takes a [Madder Player](madder-player) object serialized as a JSON string. The Madder Player object contains a dictionary of stats that are updated on the player's account. Because it is a dictionary, you can add as many stats as you like to the player's account.
+
+The Madder Stat class may be extended to add calculations and functions.
+For example, you may want to track a total number of kills a player has accumulated in your game, but you only want to display their K/D ratio:
+
+```csharp
+public class KillDeathRatioStat : MadderStat<float>
+{
+
+    private int kills;
+    private int deaths;
+
+    public KillDeathRatioStat()
+    {
+        Title = "K/D Ratio";
+    }
+
+    public int Kills {
+        get => kills;
+        set
+        {
+            kills = value;
+            Value = (float)kills / deaths;
+        }
+    }
+
+    public int Deaths
+    {
+        get => deaths;
+        set
+        {
+            deaths = value;
+            Value = (float)kills / deaths;
+        }
+    }
+
+    private void UpdateValue()
+    {
+        if (deaths == 0)
+        {
+            Value = kills;
+        }
+        else
+        {
+            Value = (float)kills / deaths;
+        }
+    }
+
+
+}
+```
+
+There is no limit to the number of stats you can add to a player's account. However, it is recommended to keep the number of stats to a reasonable amount to avoid performance issues and to keep the player's account clean.

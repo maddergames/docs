@@ -74,6 +74,9 @@
       ]
     }
   ],
+  "feedback": {
+    "thumbsRating": true
+  },
   "footerSocials": {
     "x": "https://x.com/MadderGames1",
     "github": "https://github.com/maddergames",
