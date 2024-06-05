@@ -10,6 +10,7 @@ icon: "dice"
 
 The Madder controller state is a struct used for deserializing the input sent from a player's Madder controller app to the Unity game. The WebGL build calls [UpdateMadderControllerState()](madder-manager#updatemaddercontrollerstate) on the Madder Manager to update the Madder controller state. The inputs from the player's controller are sent as follows:
 
+- Name: string
 - Joystick: \{x: float, y: float\}
 - Triangle Button: boolean
 - Circle Button: boolean
