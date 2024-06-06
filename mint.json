@@ -27,7 +27,7 @@
   },
   "tabs": [
     {
-      "name": "API Reference",
+      "name": "Videos",
       "url": "api-reference"
     }
   ],
@@ -52,13 +52,13 @@
     {
       "group": "Madder Classes",
       "pages": [
-        "essentials/madder-manager",
-        "essentials/madder-controller",
-        "essentials/madder-controller-state",
-        "essentials/madder-controller-manager",
-        "essentials/madder-player",
-        "essentials/madder-stat",
-        "essentials/madder-messager"
+        "madder-classes/madder-manager",
+        "madder-classes/madder-controller",
+        "madder-classes/madder-controller-state",
+        "madder-classes/madder-controller-manager",
+        "madder-classes/madder-player",
+        "madder-classes/madder-stat",
+        "madder-classes/madder-messager"
       ]
     },
     {
