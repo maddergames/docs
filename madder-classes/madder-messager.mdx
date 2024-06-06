@@ -43,16 +43,22 @@ MadderMessager.UpdateMadderPlayerStats(string madderPlayer);
 ### ShowCode
 
 The `ShowCode` function displays the room code on the game screen. This function may be called on `Start()` but **must
-not** be called on `Awake()`, or the room code will not display.
+not** be called on `Awake()`, or the room code will not display. This function should only be called when not in the
+Unity Editor.
 
 ```csharp
-MadderMessager.ShowCode();
+#if !UNITY_EDITOR
+    MadderMessager.ShowCode();
+#endif
 ```
 
 ### HideCode
 
-The `HideCode` function hides the room code from the game screen.
+The `HideCode` function hides the room code from the game screen. This function should only be called when not in the
+Unity Editor.
 
 ```csharp
-MadderMessager.HideCode();
+#if !UNITY_EDITOR
+    MadderMessager.HideCode();
+#endif
 ```

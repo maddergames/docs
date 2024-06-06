@@ -1,71 +1,269 @@
 ---
 title: Introduction
-description: "Welcome to the home of your new documentation"
+description: "Integrating the Madder Controller with your Unity game"
 ---
 
-<img
-  className="block dark:hidden"
-  src="/images/hero-light.svg"
-  alt="Hero Light"
-/>
-<img
-  className="hidden dark:block"
-  src="/images/hero-dark.svg"
-  alt="Hero Dark"
-/>
+<img className="block" src="/images/madder-games.png" alt="Hero Light" />
 
 ## Setting up
 
-The first step to world-class documentation is setting up your editing environments.
+The Madder Starter Pack contains everything you need to integrate your Unity game with the Madder Controller, whether
+you use the Unity Input System or not.
 
-<CardGroup cols={2}>
-  <Card
-    title="Edit Your Docs"
-    icon="pen-to-square"
-    href="https://mintlify.com/docs/quickstart"
-  >
-    Get your docs set up locally for easy development
-  </Card>
-  <Card
-    title="Preview Changes"
-    icon="image"
-    href="https://mintlify.com/docs/development"
-  >
-    Preview your changes before you push to make sure they're perfect
-  </Card>
-</CardGroup>
+<Info>
+  The Madder Starter Pack requires the Unity Input System package to be
+  installed. If you do not have the Unity Input System package installed, it
+  will be installed automatically when you import the Madder Starter Pack.
+  However, you do not have to use the Unity Input System to use the Madder
+  Starter Pack.
+</Info>
 
-## Make it yours
+### Installation
 
-Update your docs to your brand and add valuable content for the best user conversion.
+You can install the Madder Starter Pack through the Unity Package manager either by installing the package manually
+[here]() `TODO: Add link to package` or by using this git URL:
 
-<CardGroup cols={2}>
-  <Card
-    title="Customize Style"
-    icon="palette"
-    href="https://mintlify.com/docs/settings/global"
-  >
-    Customize your docs to your company's colors and brands :)
-  </Card>
-  <Card
-    title="Reference APIs"
-    icon="code"
-    href="https://mintlify.com/docs/api-playground/openapi"
-  >
-    Automatically generate endpoints from an OpenAPI spec
-  </Card>
-  <Card
-    title="Add Components"
-    icon="screwdriver-wrench"
-    href="https://mintlify.com/docs/components/accordion"
-  >
-    Build interactive features and designs to guide your users
-  </Card>
-  <Card
-    title="Get Inspiration"
-    icon="stars"
-    href="https://mintlify.com/customers"
-  >
-    Check out our showcase of our favorite documentation
-  </Card>
-</CardGroup>
+```markdown
+git@github.com:maddergames/madder-starter-package.git
+```
+
+We recommend you use the git URL to make updating the package easier.
+
+### Integration
+
+The Madder Starter Pack contains two prefabs called `MadderManager` and `MadderControllerManager` that **must** be
+placed in the scene. These prefabs are Singleton classes, which means they will persist across scene loads.
+
+If using the Unity Input system, the Madder Controller layout will be automatically registered with the Unity Input
+System upon loading the Unity Editor. You can then assign the bindings to your desired actions in the Unity Input
+System. See the [Madder Controller](madder-controller) class for more information.
+
+The Madder Starter Pack provides a sample game manager, sample player manager, and sample player to show you how you
+might interact with the Madder Manager.
+
+<Accordion title="Sample Scripts">
+<CodeGroup>
+```csharp SamplePlayerManager.cs
+public class SamplePlayerManager : MonoBehaviour
+{
+    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private InputActionAsset inputActions;
+    private Dictionary<string, PlayerInput> playerInputs = new Dictionary<string, PlayerInput>();
+    private MadderManager madderManager;
+
+    private void Awake()
+    {
+        madderManager = FindObjectOfType<MadderManager>();
+
+
+        //subscribe to RegisterMadderController event
+        MadderManager.onRegisterMadderController += OnRegisterMadderController;
+
+    }
+
+
+    private void OnRegisterMadderController(MadderPlayer madderPlayer)
+    {
+        RegisterPlayer(madderPlayer.name);
+    }
+
+    public void RegisterPlayer(string gamername)
+    {
+        // Create a new player at a random location between (0,0,0) and (4,4,0)
+
+        GameObject player = Instantiate(playerPrefab, new Vector3(Random.Range(0, 4), Random.Range(0, 4), 0), Quaternion.identity);
+
+        player.name = gamername;
+        Debug.Log("Player created: " + player.name);
+
+
+        PlayerInput playerInput = player.AddComponent<PlayerInput>();
+
+
+        if (playerInput == null)
+        {
+            Debug.Log("PlayerInput is null");
+        }
+
+        //We must clone the inputActions to avoid sharing the same instance between players
+        InputActionAsset clonedinputActions = Instantiate(inputActions);
+        playerInput.actions = clonedinputActions;
+
+        //Store the PlayerInput instance
+        playerInputs[gamername] = playerInput;
+
+        //Initialize the player controller
+        SamplePlayer playerController = player.GetComponent<SamplePlayer>();
+        playerController.Initialize(playerInput);
+
+
+
+    }
+
+    public void UnregisterPlayer(string gamername)
+    {
+        if (playerInputs.TryGetValue(gamername, out var playerInput))
+        {
+            playerInputs.Remove(gamername);
+            Destroy(playerInput.gameObject);
+            madderManager.UnregisterMadderController(gamername);
+        }
+    }
+
+    public bool TryGetPlayerInput(string gamername, out PlayerInput playerInput)
+    {
+        return playerInputs.TryGetValue(gamername, out playerInput);
+    }
+
+}
+
+````
+
+```csharp SamplePlayer.cs
+public class SampleGameManager : MonoBehaviour
+{
+    private static SampleGameManager Instance { get; set; }
+    private MadderControllerTest madderControllerTest;
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(this);
+
+
+    }
+
+    void Start()
+    {
+        //only call the following if not in the editor
+#if UNITY_WEBGL && !UNITY_EDITOR
+        MadderMessager.ShowCode();
+#endif
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+
+            Debug.Log("Testing Madder Controller");
+            madderControllerTest = FindObjectOfType<MadderControllerTest>();
+            madderControllerTest.TestMadderInput();
+        }
+    }
+}
+````
+
+</CodeGroup>
+</Accordion>
+
+### Testing
+
+The Madder Controller Starter Pack contains a `MadderControllerTest` file that you can use or copy from to test the
+Madder Controller in your game. The `MadderControllerTest` is a simple script that will simulate the Madder
+Controller input for testing purposes.
+
+We have also provided a sample game manager to show how you could call the MadderControllerTest.
+
+<Accordion title="Madder Test">
+<CodeGroup>
+```csharp MadderControllerTest.cs
+public class MadderControllerTest : MonoBehaviour
+{
+    public MadderManager madderManager;
+
+    void Start()
+    {
+        madderManager = FindObjectOfType<MadderManager>();
+    }
+
+    public void TestMadderInput()
+    {
+        //Register a new madder controller with a random name
+        const string chars = "abcdefghijklmnopqrstuvwxyz";
+        string randomName = "";
+        for (int i = 0; i < 4; i++)
+        {
+            randomName += chars[Random.Range(0, chars.Length)];
+        }
+        MadderPlayer madderPlayer = new MadderPlayer();
+        madderPlayer.name = randomName;
+        string madderPlayerJson = JsonUtility.ToJson(madderPlayer);
+        madderManager.RegisterMadderController(madderPlayerJson);
+        //Create a new controller state that follows MadderControllerState class
+        //Wait for 5 seconds
+        //Send a new controller state with different values
+        StartCoroutine(waiter(randomName));
+
+    }
+
+    IEnumerator waiter(string randomName)
+    {
+        //Give the controller a random direction to move in
+        float x = Random.Range(-1f, 1f);
+        float y = Random.Range(-1f, 1f);
+        string jsonControllerState = "{\"name\":\"" + randomName + "\",\"joystick\":{\"x\":" + x + ",\"y\":" + y + "},\"circle\":false,\"triangle\":false,\"plus\":false}";
+        madderManager.UpdateMadderControllerState(jsonControllerState);
+        //wait for 5 seconds
+        yield return new WaitForSeconds(5);
+
+        //send a new controller state with different values
+        jsonControllerState = "{\"name\":\"" + randomName + "\",\"joystick\":{\"x\":0,\"y\":0},\"circle\":false,\"triangle\":false,\"plus\":false}";
+        madderManager.UpdateMadderControllerState(jsonControllerState);
+
+    }
+
+}
+
+````
+
+```csharp SampleGameManager.cs
+public class SampleGameManager : MonoBehaviour
+{
+    private static SampleGameManager Instance { get; set; }
+    private MadderControllerTest madderControllerTest;
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+            return;
+        }
+        Instance = this;
+        DontDestroyOnLoad(this);
+
+
+    }
+
+    void Start()
+    {
+        //only call the following if not in the editor
+#if UNITY_WEBGL && !UNITY_EDITOR
+        MadderMessager.ShowCode();
+#endif
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+
+            Debug.Log("Testing Madder Controller");
+            madderControllerTest = FindObjectOfType<MadderControllerTest>();
+            madderControllerTest.TestMadderInput();
+        }
+    }
+}
+````
+
+</CodeGroup>
+</Accordion>
+
+Once you have integrated with Madder successfully, you can test your game with the Madder Controller app within the
+Madder [Developer Portal](https://developers.maddergames.com/).
