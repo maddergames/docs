@@ -27,17 +27,11 @@
   },
   "tabs": [
     {
-      "name": "Videos",
-      "url": "api-reference"
+      "name": "Quickstart",
+      "url": "quickstart"
     }
   ],
   "anchors": [
-    {
-      "name": "Tutorials",
-      "icon": "question",
-      "iconType": "solid",
-      "url": "https://developers.maddergames.com/starter-tutorial"
-    },
     {
       "name": "Community",
       "icon": "discord",
@@ -47,7 +41,7 @@
   "navigation": [
     {
       "group": "Get Started",
-      "pages": ["introduction", "quickstart"]
+      "pages": ["introduction", "madder-store-guidelines"]
     },
     {
       "group": "Madder Classes",
@@ -62,15 +56,14 @@
       ]
     },
     {
-      "group": "Madder Starter Pack",
-      "pages": ["api-reference/introduction"]
-    },
-    {
-      "group": "Madder Classes",
+      "group": "Quickstart",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "quickstart/introduction",
+        "quickstart/setup",
+        "quickstart/integrate-madder",
+        "quickstart/test-in-unity",
+        "quickstart/developer-portal",
+        "quickstart/next-steps"
       ]
     }
   ],

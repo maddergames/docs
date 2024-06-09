@@ -30,7 +30,7 @@ parameter is a [MadderPlayer](madder-player) object serialized as a JSON string.
 For information on how to set up the Madder Controller with the Unity Input System, see the
 [Madder Controller](madder-controller) class.
 
-You may subscribe to the [OnRegisterMadderController](madder-manager#onregistermaddercontroller) event to listen for
+You may subscribe to the `OnRegisterMadderController` event to listen for
 when a Madder Controller is registered, for example to spawn a Player GameObject.
 
 ```csharp MadderManager.cs
@@ -57,11 +57,13 @@ The `UpdateMadderControllerState` method is called by the WebGL build when a pla
 JSON string.
 
 If you are not using the Unity Input System, you may listen to the
-[OnUpdateMadderControllerState](madder-manager#onupdatemaddercontrollerstate) event to interact with the Madder
+`OnUpdateMadderControllerState` event to interact with the Madder
 Controller State. This event provides the gamername of the player controller and the Madder Controller State so you can
 update your game and players accordingly.
 
 ```csharp MadderManager.cs
+public delegate void OnRegisterMadderController(MadderPlayer madderPlayer);
+public static event OnRegisterMadderController onRegisterMadderController;
 public void UpdateMadderControllerState(string jsonControllerState)
 {
     //Turn the booleans in the json string to floats for the Unity Input System
