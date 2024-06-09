@@ -51,7 +51,7 @@ public class SamplePlayerManager : MonoBehaviour
 ```
 
 The `SamplePlayerManager` class is responsible for creating and managing players in the unity scene. On `Awake`, we
-subscribe to the `onRegisterMadderController` event in the [MadderManager](madder-classes/madder-manager) class. When
+subscribe to the `onRegisterMadderController` event in the [MadderManager](/madder-classes/madder-manager) class. When
 the Madder server signals that a new player has connected to the room code, the `MadderManager` will trigger this event,
 and the `SamplePlayerManager` will create a new player in the scene.
 
@@ -72,7 +72,7 @@ and the `SamplePlayerManager` will create a new player in the scene.
 
 Next, we need to associate the player with the Madder Controller. We create a new `PlayerInput` object and assign it to
 the player. When you create a new `PlayerInput` object, Unity automatically checks for available input devices and will
-assign the Madder Controller to the player. See the [Madder Controller](madder-classes/madder-controller) class for more
+assign the Madder Controller to the player. See the [Madder Controller](/madder-classes/madder-controller) class for more
 information.
 
 ```csharp SamplePlayerManager.cs
