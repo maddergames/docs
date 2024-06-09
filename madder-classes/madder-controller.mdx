@@ -6,6 +6,7 @@ icon: "gamepad"
 ---
 
 {" "}
+
 <img src="/images/madder-controller.png" style={{ borderRadius: "0.5rem" }} />
 
 ## Overview
@@ -37,12 +38,10 @@ Upon loading the Unity Editor, the Madder Controller Registration class will aut
 Controller layout with the Unity Input System. You can then assign the bindings to your desired actions in the Unity
 Input System: Other -> Madder Controller.
 
-<Frame>
-  <img
-    src="/images/input-actions-example.png"
-    style={{ borderRadius: "0.5rem" }}
-  />
-</Frame>
+<img
+  src="/images/input-actions-example.png"
+  style={{ borderRadius: "0.5rem" }}
+/>
 
 Controllers should not be added manually to the Unity Input System--The [Madder Manager](madder-manager) will detect
 when a player has joined, register a new Madder Controller, and associate that controller with the gamername of the
