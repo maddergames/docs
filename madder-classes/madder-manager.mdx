@@ -97,6 +97,7 @@ public static event OnUnregisterMadderController onUnregisterMadderController;
 public void UnregisterMadderController(string gamername)
 {
     madderControllerManager.RemoveController(gamername);
+    onUnregisterMadderController?.Invoke(gamername);
 }
 ```
 
